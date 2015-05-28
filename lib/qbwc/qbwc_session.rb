@@ -10,15 +10,14 @@ module QBWC
     def current_request
       request = nil
       if job = self.next_job ||= next_job_in_queue
-        request = job.generate_request
-        advance
+          request = job.generate_request
+          advance
       end
       request
     end
 
     def next_job_in_queue
-      jobs = QBWC::QbwcJob.where(processed: false).order('id asc')
-      jobs = jobs.where(owner_id: self.owner_id, owner_type: self.owner_type)
+      jobs = QBWC::QbwcJob.where(processed: false, owner_id: self.owner_id, owner_type: self.owner_type).order('id asc')
       jobs = jobs.where('id != ?', self.next_job.id) if self.next_job.present?
       jobs.limit(1).first
     end
@@ -31,13 +30,13 @@ module QBWC
 
     def progress
       n_processed = QBWC::QbwcJob.where(processed: true, owner_id: self.owner_id, owner_type: self.owner_type).count.to_f
-      total_jobs = QBWC::QbwcJob.count.to_f
+      total_jobs = QBWC::QbwcJob.where(owner_id: self.owner_id, owner_type: self.owner_type).count.to_f
       return 100 if n_processed == total_jobs
       ((n_processed / total_jobs)*100).to_i
     end
 
     def complete_session
-      QBWC::QbwcJob.where(processed: true, owner_id: self.owner_id, owner_type: self.owner_type).destroy_all
+      QBWC::QbwcJob.where(processed: true, owner_id: self.owner_id, owner_type: self.owner_type).delete_all
       self.destroy
     end
 
