@@ -16,7 +16,6 @@ class QBWC::Request
         end
 
         @request = <<-XML
-<?xml version="1.0" encoding="utf-8" ?>
 #{QBWC.parser.to_qbxml(request)}
         XML
 
@@ -26,6 +25,7 @@ class QBWC::Request
 
     if @request.present?
       @request.gsub!(/version="(\d+)\.(\d+)"\?/,'version="\1.\2" ?')
+      @request.gsub!(/ISO-8859-1/, "UTF-8")
     end
 
     @request = I18n.transliterate @request
