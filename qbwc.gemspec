@@ -5,8 +5,8 @@ require "qbwc/version"
 Gem::Specification.new do |s|
   s.name        = "qbwc"
   s.version     = QBWC::VERSION
-  s.authors     = ["Alex Skryl", "Russell Osborne", "German Garcia"]
-  s.email       = ["rut216@gmail.com", "russell@burningpony.com", "geermc4@gmail.com"]
+  s.authors     = ["Alex Skryl", "Russell Osborne", "German Garcia", "Jason Barnabe"]
+  s.email       = ["rut216@gmail.com", "russell@burningpony.com", "geermc4@gmail.com", "jason.barnabe@gmail.com"]
   s.homepage    = ""
   s.summary     = %q{A Rails interface for Intuit's Quickbooks Web Connector}
   s.description = %q{A Rails interface for Intuit's Quickbooks Web Connector that's OPEN SOURCE!}
@@ -22,12 +22,21 @@ Gem::Specification.new do |s|
     "README.md"
   ]
 
-  s.add_dependency "quickbooks_api", [">= 0.1.6"]
-  s.add_dependency "rubyjedi-soap4r", [">= 1.5.8.20100619003610"]
-  s.add_development_dependency('guard')
-  s.add_development_dependency('guard-rspec')
-  s.add_development_dependency('rb-fsevent')
+  s.required_ruby_version = '>= 2.2.2'
+
+  s.add_dependency "qbxml", [">= 0.3.0"]
+  s.add_dependency "wash_out", ['>=0.12.0']
+  s.add_dependency 'actionpack', ['>= 5.0.1']
+
   s.add_development_dependency('webmock')
   s.add_development_dependency('rspec')
-
+  s.add_development_dependency('activerecord')
+  s.add_development_dependency('rails', [">= 5.0.1", '< 6.1'])
+  s.add_development_dependency('sqlite3')
+  s.add_development_dependency('minitest')
+  s.add_development_dependency('rake')
+  s.add_development_dependency('appraisal')
+  s.add_development_dependency('savon')
+  s.add_development_dependency('httpi')
+  s.add_development_dependency('byebug')
 end
