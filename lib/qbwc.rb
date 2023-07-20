@@ -16,7 +16,7 @@ module QBWC
   mattr_accessor :password
   @@password = 'bar'
 
-  # Full path to pompany file 
+  # Full path to pompany file
   mattr_accessor :company_file_path
   @@company_file_path = ""
 
@@ -26,7 +26,7 @@ module QBWC
 
   # App name in quickbooks file
   mattr_accessor :app_name
-  @@app_name = Rails.application.class.parent_name
+  @@app_name = Rails.application.class.module_parent_name
 
   # Quickbooks app url provided in qwc file, defaults to root_url + ''
   mattr_accessor :app_url
