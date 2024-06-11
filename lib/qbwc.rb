@@ -62,7 +62,7 @@ module QBWC
   class << self
 
     def pending_jobs(user)
-      QBWC::QbwcJob.where(processed: false, owner_id: user.id, owner_type: user.class.name)
+      QBWC::QbwcJob.where(processed: false, owner_id: user.id, owner_type: user.model_name.name)
     end
 
     def on_error=(reaction)
